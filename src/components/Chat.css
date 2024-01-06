@@ -1,0 +1,9 @@
+.chat-box{
+    height: 400px;
+    width: 400px;
+    background-color: lightgreen;
+}
+.chat-input{
+    margin-top: 90%;
+    height: 30px;
+}
