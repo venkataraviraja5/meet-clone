@@ -4,6 +4,12 @@
     background-color: lightgreen;
 }
 .chat-input{
-    margin-top: 90%;
+    margin-top: 10px;
     height: 30px;
+}
+
+.comments{
+  height: 300px;
+  background-color: aqua;
+  overflow:scroll;
 }

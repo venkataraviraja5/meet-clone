@@ -1,39 +1,62 @@
 import React, { useEffect, useState } from 'react'
 import "./Chat.css"
 import { io } from 'socket.io-client'
+import { useParams } from 'react-router-dom'
 const socket = io.connect('http://localhost:8080')
 
 const Chat = () => {
     
     const[message,newMessage] = useState('')
-    const[chat,newChat] = useState(["blast"])
+    const[room,setRoom] = useState('')
+    const[chat,newChat] = useState([])
+    const {id} = useParams()
+    console.log(id)
 
      const sendMessage = () =>{
-        socket.emit("message",message)
+        socket.emit("message",{message,id})
+     }
+
+     const joinRoom = () =>{
+        if(room !== null){
+            socket.emit("join-room",room)
+        }
      }
      
+     useEffect(() => {
+        if(id !== null){
+            socket.emit("join-room",id)
+        }
+     },[id])
+
      useEffect(()=>{
         socket.on('frontend-message',(data)=>{
-            newChat(data)
+            console.log("recevied")
+            newChat(prevChat => [...prevChat, data.message]);
         })
+
+        return () => {
+            socket.off();
+          };
+
      },[socket])
+
+     useEffect(()=>{
+        console.log(chat)
+     },[chat])
 
   return (
     <div>
       <h1>Chat</h1>
       <div className='chat-box'>
-        <div>
-         {
-          chat.length != 0 ? 
-          <div>
-            {
-                chat.map((value) => (
-                    <p>{value}</p>
-                ))
-            }
-          </div> :null
-         }
+        <div className='comments'>
+        {
+            chat.map((value,index) => (
+                <p key={index}>{value}</p>
+            ))
+        }
         </div>
+        <input type='text' placeholder='enter room number' onChange={(e) => setRoom(e.target.value)}/> 
+        <button >Enter</button>
         <input type='text' placeholder='Enter Your Chat' className='chat-input'
         onChange={(e) => newMessage(e.target.value)}
         />
