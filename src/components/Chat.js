@@ -55,8 +55,7 @@ const Chat = () => {
             ))
         }
         </div>
-        <input type='text' placeholder='enter room number' onChange={(e) => setRoom(e.target.value)}/> 
-        <button >Enter</button>
+        
         <input type='text' placeholder='Enter Your Chat' className='chat-input'
         onChange={(e) => newMessage(e.target.value)}
         />
