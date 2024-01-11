@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import "./Home.css"
 import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
@@ -52,11 +52,12 @@ const Home = () => {
     }
 
   return ( 
-    <div>
-      <h1>Create</h1>
-      <input type='text' placeholder='Enter Your Room Id' onChange={(e) => setRoomId(e.target.value)}/>
-      <input type='text' placeholder='Enter Your Password' onChange={(e) => setPassword(e.target.value)}/>
-      <button onClick={createNewRoom}>Create Room</button>
+    <div className='home'>
+      <div className='create-room'>
+         <input type='text' placeholder='Enter Your Room Id' onChange={(e) => setRoomId(e.target.value)}/>
+         <input type='text' placeholder='Enter Your Password' onChange={(e) => setPassword(e.target.value)}/>
+         <button onClick={createNewRoom}>Create Room</button>
+      </div>
       <hr></hr>
       <input type='text' placeholder='Enter your id' onChange={(e) => setJoinRoomId(e.target.value)}/>
       <input type='text' placeholder='Enter Your Password' onChange={(e) => setRoomPassword(e.target.value)} />
